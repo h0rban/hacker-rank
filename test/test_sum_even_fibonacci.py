@@ -8,7 +8,7 @@ log = False
 n_loops = 10
 imports = """
 from math import sqrt, floor, log
-from decimal import Decimal, Context, setcontext, ROUND_HALF_UP
+from decimal import Decimal, Context, setcontext
 from project_euler.sum_even_fibonacci import sum_even_fibonacci_v1, sum_even_fibonacci_v2, sum_even_fibonacci_v3
 """
 
@@ -17,8 +17,8 @@ class TestSumEvenFibonacci(TestCase):
 
     def version_helper(self, limit, expected):
 
-        if log:
-            results = []
+        results = []
+
         for func in [sum_even_fibonacci_v1, sum_even_fibonacci_v2, sum_even_fibonacci_v3]:
             if log:
                 arr = np.array(Timer(f'{func.__name__}({limit})', setup=imports).repeat(repeat=n_loops, number=1))

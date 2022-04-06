@@ -1,5 +1,5 @@
 from math import sqrt, floor, log
-from decimal import Decimal, Context, setcontext, ROUND_HALF_UP
+from decimal import Decimal, Context, setcontext
 
 
 def sum_even_fibonacci_v1(limit):
@@ -26,7 +26,7 @@ def sum_even_fibonacci_v3(limit):
     completed on 2022-04-04
     resources used: https://medium.com/@TheZaki/project-euler-2-even-fibonacci-numbers-2219e9438970
     """
-    context = Context(prec=21, rounding=ROUND_HALF_UP)
+    context = Context(prec=21)
     setcontext(context)
 
     phi = Decimal(1 + Decimal(5).sqrt()) / Decimal(2)
@@ -41,7 +41,7 @@ def sum_even_fibonacci_v3(limit):
     def sum_even(k):
         phi3 = context.power(phi, 3)
         psi3 = context.power(psi, 3)
-        return int((Decimal(1) / Decimal(5).sqrt()) * (
+        return round((Decimal(1) / Decimal(5).sqrt()) * (
                 phi3 * ((1 - context.power(phi3, k)) / (1 - phi3)) -
                 psi3 * ((1 - context.power(psi3, k)) / (1 - psi3))
         ))
