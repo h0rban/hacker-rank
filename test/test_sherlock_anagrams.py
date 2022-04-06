@@ -5,6 +5,7 @@ from interview_prep_kit.dictionaries_and_hashmaps.sherlock_anagrams import sherl
 log = False
 
 
+# noinspection SpellCheckingInspection
 class Test(TestCase):
 
     def test1(self):

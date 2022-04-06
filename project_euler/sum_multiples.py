@@ -9,14 +9,13 @@ def arithmetic_sum(a, d, n):
     return n * (2 * a + d * (n - 1)) // 2
 
 
-def sum_multiples_of_under(first_term, upper_bound):
-    return arithmetic_sum(first_term, first_term, (upper_bound - 1) // first_term)
+def sum_multiples_of_under(a, limit):
+    return arithmetic_sum(a, a, (limit - 1) // a)
 
 
-def sum_of_multiples(upper_bound, a, b):
+def sum_of_multiples(limit, a, b):
     """
     completed on 2022-04-05
     """
-    sum_a, sub_b, sum_intersection = map(lambda x: sum_multiples_of_under(x, upper_bound), (a, b, a * b))
+    sum_a, sub_b, sum_intersection = map(lambda x: sum_multiples_of_under(x, limit), (a, b, a * b))
     return sum_a + sub_b - sum_intersection
-
