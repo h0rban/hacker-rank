@@ -1,5 +1,12 @@
-def arithmetic_sum(first_term, difference, n_terms):
-    return n_terms * (2 * first_term + difference * (n_terms - 1)) // 2
+def arithmetic_sum(a, d, n):
+    """
+
+    :param a: first term
+    :param d: difference between terms
+    :param n: number of terms
+    :return: arithmetic sum of n terms starting at a and increasing by d
+    """
+    return n * (2 * a + d * (n - 1)) // 2
 
 
 def sum_multiples_of_under(first_term, upper_bound):
