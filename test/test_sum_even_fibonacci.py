@@ -1,10 +1,9 @@
-import numpy as np
 import pandas as pd
-from timeit import Timer
 from unittest import TestCase
 from project_euler.sum_even_fibonacci import *
+from timer.timer import time_func
 
-log = False
+log = True
 n_loops = 10
 imports = """
 from math import sqrt, floor, log
@@ -21,9 +20,7 @@ class TestSumEvenFibonacci(TestCase):
 
         for func in [sum_even_fibonacci_v1, sum_even_fibonacci_v2, sum_even_fibonacci_v3]:
             if log:
-                arr = np.array(Timer(f'{func.__name__}({limit})', setup=imports).repeat(repeat=n_loops, number=1))
-                results.append({'name': func.__name__, 'mean': arr.mean(), 'std': arr.std()})
-
+                results.append(time_func(func, limit, n_loops=10))
             self.assertEqual(func(limit), expected, func.__name__)
 
         if log:
