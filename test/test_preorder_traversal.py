@@ -3,7 +3,7 @@ import pandas as pd
 from unittest import TestCase
 from timer.timer import time_func
 from data_structures.trees.tree_preorder_traversal import *
-from data_structures.trees.binary_search_tree import BinarySearchTree
+from data_structures.trees.binary_search_tree import BinarySearchTree, make_bst
 
 log = False
 tree_str = r'''
@@ -37,14 +37,8 @@ class TestPreOrderTraversal(TestCase):
             print(f'args: {args}', pd.DataFrame(results), '', sep='\n')
 
     def setUp(self) -> None:
-        self.tree = BinarySearchTree()
-        for i in [1, 2, 5, 3, 6, 4]:
-            self.tree.create(i)
-
-        rand = np.random.RandomState(42)
-        self.random_tree = BinarySearchTree()
-        for i in rand.choice(1000, size=100, replace=False):
-            self.random_tree.create(i)
+        self.tree = make_bst(1, 2, 5, 3, 6, 4)
+        self.random_tree = make_bst(*np.random.RandomState(42).choice(1000, size=100, replace=False))
 
     def test0(self):
         self.assertEqual(self.tree.__str__(), tree_str)

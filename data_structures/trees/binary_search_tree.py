@@ -62,7 +62,7 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def create(self, val):
+    def insert(self, val):
         if self.root is None:
             self.root = Node(val)
         else:
@@ -87,3 +87,10 @@ class BinarySearchTree:
     def __str__(self):
         lines, *_ = self.root.display_aux()
         return '\n'.join(map(str.rstrip, lines))
+
+
+def make_bst(*vals):
+    bst = BinarySearchTree()
+    for val in vals:
+        bst.insert(val)
+    return bst
