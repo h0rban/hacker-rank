@@ -3,6 +3,7 @@ import pandas as pd
 from unittest import TestCase
 from timer.timer import time_func
 from data_structures.trees.tree_preorder_traversal import *
+from data_structures.trees.binary_search_tree import BinarySearchTree
 
 log = False
 tree_str = r'''

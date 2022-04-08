@@ -1,5 +1,6 @@
 from unittest import TestCase
 from data_structures.linked_lists.reverse_doubly_linked_list import *
+from data_structures.linked_lists.doubly_linked_list import make_dll
 
 
 class TestReverseDoublyLinkedList(TestCase):
