@@ -10,46 +10,43 @@ class Node:
         right = self.right.info if self.right else 'null'
         return f'{self.info} -> {left}, {right}'
 
-    def display(self):
-        lines, *_ = self.__display_aux()
-        for line in lines:
-            print(line)
+    def display_aux(self):
+        """
+        Returns list of strings, width, height, and horizontal coordinate of the root.
+        taken from: https://stackoverflow.com/questions/34012886/print-binary-tree-level-by-level-in-python
+        """
 
-    def __display_aux(self):
-        """Returns list of strings, width, height, and horizontal coordinate of the root."""
+        s = str(self.info)
+        u = len(s)
+
         # No child.
-        if self.right is None and self.left is None:
-            line = '%s' % self.info
+        if not self.right and not self.left:
+            line = str(self.info)
             width = len(line)
             height = 1
             middle = width // 2
             return [line], width, height, middle
 
         # Only left child.
-        if self.right is None:
-            lines, n, p, x = self.left.__display_aux()
-            s = '%s' % self.info
-            u = len(s)
-            first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
+        if not self.right:
+            lines, n, p, x = self.left.display_aux()
+            first_line = f'{" " * (x + 1)} {"_" * (n - x - 1)}{s}'
             second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
             shifted_lines = [line + u * ' ' for line in lines]
             return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
 
         # Only right child.
-        if self.left is None:
-            lines, n, p, x = self.right.__display_aux()
-            s = '%s' % self.info
-            u = len(s)
+        if not self.left:
+            lines, n, p, x = self.right.display_aux()
             first_line = s + x * '_' + (n - x) * ' '
             second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
             shifted_lines = [u * ' ' + line for line in lines]
             return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
 
         # Two children.
-        left, n, p, x = self.left.__display_aux()
-        right, m, q, y = self.right.__display_aux()
-        s = '%s' % self.info
-        u = len(s)
+        left, n, p, x = self.left.display_aux()
+        right, m, q, y = self.right.display_aux()
+
         first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
         second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
         if p < q:
@@ -88,5 +85,38 @@ class BinarySearchTree:
                     break
 
     def __str__(self):
-        lines, *_ = self.root.__display_aux()
-        return '\n'.join(lines)
+        lines, *_ = self.root.display_aux()
+        return '\n'.join(map(str.rstrip, lines))
+
+
+def pre_order_v1(node):
+    """
+    completed on 2022-04-07
+    """
+    if not node:
+        return []
+    return [node.info] + pre_order_v1(node.left) + pre_order_v1(node.right)
+
+
+def pre_order_v2(node):
+    accum = []
+
+    while node:
+        if not node.left:
+            accum.append(node.info)
+            node = node.right
+        else:
+            prev = node.left
+
+            while prev.right and prev.right != node:
+                prev = prev.right
+
+            if prev.right:
+                prev.right = None
+                node = node.right
+            else:
+                prev.right = node
+                accum.append(node.info)
+                node = node.left
+
+    return accum

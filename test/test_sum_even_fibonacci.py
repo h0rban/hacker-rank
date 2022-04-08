@@ -3,7 +3,7 @@ from unittest import TestCase
 from project_euler.sum_even_fibonacci import *
 from timer.timer import time_func
 
-log = True
+log = False
 n_loops = 10
 imports = """
 from math import sqrt, floor, log
