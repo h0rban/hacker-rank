@@ -1,6 +1,6 @@
 from unittest import TestCase
 from data_structures.trees.binary_search_tree import make_bst
-from data_structures.trees.lowest_common_ancestor import lca
+from data_structures.trees.lowest_common_ancestor import lca, lca_v2
 
 tree1 = r"""
   _4_
@@ -23,12 +23,17 @@ tree2 = r"""
 
 class TestLowestCommonAncestor(TestCase):
 
+    def version_helper(self, expected, *args):
+        for func in [lca, lca_v2]:
+            self.assertEqual(func(*args).info, expected, func.__name__)
+
     def setUp(self) -> None:
         self.tree1 = make_bst(4, 2, 3, 1, 7, 6)
         self.tree2 = make_bst(5, 3, 8, 2, 4, 6, 7)
 
     def lca_helper(self, expected, tree, v1, v2):
-        self.assertEqual(expected, lca(tree.root, v1, v2).info)
+        self.version_helper(expected, tree.root, v1, v2)
+        # self.assertEqual(expected, lca(tree.root, v1, v2).info)
 
     def test0(self):
         self.assertEqual(tree1, str(self.tree1))

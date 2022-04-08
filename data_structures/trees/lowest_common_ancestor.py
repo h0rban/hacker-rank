@@ -19,3 +19,12 @@ def lca(node, v1, v2):
     if node.right and is_in_tree(node.right, v1) and is_in_tree(node.right, v2):
         return lca(node.right, v1, v2)
     return node
+
+
+def lca_v2(node, v1, v2):
+    if node.info < v1 and node.info < v2:
+        return lca_v2(node.right, v1, v2)
+    elif node.info > v1 and node.info > v2:
+        return lca_v2(node.left, v1, v2)
+    else:
+        return node
