@@ -14,35 +14,33 @@ from project_euler.sum_even_fibonacci import sum_even_fibonacci_v1, sum_even_fib
 
 class TestSumEvenFibonacci(TestCase):
 
-    def version_helper(self, limit, expected):
-
+    def version_helper(self, expected, *args, n_loops=10):
         results = []
-
         for func in [sum_even_fibonacci_v1, sum_even_fibonacci_v2, sum_even_fibonacci_v3]:
             if log:
-                results.append(time_func(func, limit, n_loops=10))
-            self.assertEqual(func(limit), expected, func.__name__)
+                results.append(time_func(func, *args, n_loops=n_loops))
+            self.assertEqual(func(*args), expected, func.__name__)
 
         if log:
-            print(limit, pd.DataFrame(results), '', sep='\n')
+            print(*args, pd.DataFrame(results), '', sep='\n')
 
     def test0(self):
         self.version_helper(10, 10)
 
     def test1(self):
-        self.version_helper(100, 44)
+        self.version_helper(44, 100)
 
     def test2(self):
-        self.version_helper(1000, 798)
+        self.version_helper(798, 1000)
 
     def test3(self):
-        self.version_helper(1e6, 1089154)
+        self.version_helper(1089154, 1e6)
 
     def test4(self):
-        self.version_helper(1e15, 652484772464328)
+        self.version_helper(652484772464328, 1e15)
 
     def test5(self):
-        self.version_helper(1e16, 11708364174233842)
+        self.version_helper(11708364174233842, 1e16)
 
     def test6(self):
-        self.version_helper(4e16, 49597426547377748)
+        self.version_helper(49597426547377748, 4e16)
